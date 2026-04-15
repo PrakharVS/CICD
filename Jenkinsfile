@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/PrakharVS/CICD.git'
+                git branch: 'master', url: 'https://github.com/PrakharVS/CICD.git'
             }
         }
 
