@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "prakharvs/portfolio"
+        DOCKER_IMAGE = "prakharvs/webserver"
         DOCKER_CREDENTIALS = "docker_credentials"
-        EC2_IP = "13.203.38.132"
+        EC2_IP = "65.2.134.81"
     }
 
     stages {

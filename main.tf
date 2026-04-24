@@ -30,10 +30,10 @@ resource "null_resource" "deploy" {
       "sudo docker rm portfolio || true",
 
       # Pull latest image
-      "sudo docker pull prakharvs/portfolio:latest",
+      "sudo docker pull prakharvs/webserver:latest",
 
       # Run container
-      "sudo docker run -d -p 80:80 --name portfolio prakharvs/portfolio:latest"
+      "sudo docker run -d -p 80:80 --name portfolio prakharvs/webserver:latest"
     ]
   }
 }
