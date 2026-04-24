@@ -58,6 +58,7 @@ pipeline {
             steps {
                     bat """
                     terraform init
+                    terraform taint null_resource.deploy
                     terraform apply -auto-approve -var="ec2_ip=%EC2_IP%"
                     """
             }
