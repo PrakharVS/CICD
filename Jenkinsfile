@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = "prakharvs/webserver"
         DOCKER_CREDENTIALS = "docker_credentials"
-        EC2_IP = "65.2.134.81"
     }
 
     stages {
@@ -47,27 +46,20 @@ pipeline {
             }
         }
 
-        // 🔥 ADD THIS STAGE
-        stage('Check Terraform') {
+        // 🔥 LOCAL RUN (NO EC2)
+        stage('Run Container Locally') {
             steps {
-                bat "terraform -v"
+                bat """
+                docker stop webserver || exit 0
+                docker rm webserver || exit 0
+                docker run -d -p 8080:80 --name webserver %DOCKER_IMAGE%:latest
+                """
             }
         }
 
-        stage('Terraform Deploy') {
+        stage('Show URL') {
             steps {
-                    bat """
-                    terraform init
-                    terraform taint null_resource.deploy
-                    terraform apply -auto-approve -var="ec2_ip=%EC2_IP%"
-                    """
-            }
-        }
-
-        stage('Show Deployment URL') {
-            steps {
-                echo "🌐 Deployment Successful!"
-                echo "👉 Open: http://${EC2_IP}"
+                echo "🌐 App running at: http://localhost:8080"
             }
         }
     }
